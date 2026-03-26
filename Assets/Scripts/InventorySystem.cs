@@ -56,6 +56,7 @@ public class DishChecker
             }
             if (ingredients[i] < 0) ingredients[i] = 0;
             Debug.Log("All ingredients are sufficient for cutting " + dishName);
+            StockDecrease(ingredients[i]);
         }
     }
     public void StockDecrease(InventorySystem.IngredientType types)
