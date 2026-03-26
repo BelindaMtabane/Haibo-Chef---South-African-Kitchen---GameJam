@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 public class CuttingSystems : MonoBehaviour
 {
+    //DishCheck dishChecker;
     public GameObject Redbutton;
     public GameObject Bluebutton;
     public GameObject Greenbutton;
@@ -61,7 +62,7 @@ public class CuttingSystems : MonoBehaviour
         if (!canClick) return;
         Debug.Log("Clicked: " + clickedButton.name);
 
-        //Check if the clcick buttton accompanies the sequence
+        //Check if the clickck buttton accompanies the sequence
         bool correct = (clickedButton == sequence[currentIndex]);
 
         //Provide feedback and move to the next button in the sequence if correct
@@ -84,6 +85,15 @@ public class CuttingSystems : MonoBehaviour
             Debug.Log("Sequence failed! Restarting...");
             currentIndex = 0;
             buttonSequence();
+        }
+        
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            HighlightButtons();
+            timer = Time.time + 2f; // Reset timer when player enters the trigger
         }
     }
 }
