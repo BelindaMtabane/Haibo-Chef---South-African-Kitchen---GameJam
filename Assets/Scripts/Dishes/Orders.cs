@@ -17,7 +17,7 @@ public class Orders : MonoBehaviour
     // Start: pick some orders to show
     void Start()
     {
-        count = 1; //Start with 1 order
+        count = 2; //Start with 2 order
         GeneratorOrder();
         UpdateOrdersUI();
     }

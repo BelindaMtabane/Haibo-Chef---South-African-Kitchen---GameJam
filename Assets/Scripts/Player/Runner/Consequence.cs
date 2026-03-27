@@ -9,8 +9,9 @@ public class Consequence : MonoBehaviour
     private float damage;
     private float currentHP;
     PlayerMovement playerMovement;
-    public TMP_Text health;
+    private TMP_Text health;
     RecognitionBar recognitionBar;
+    public GameObject death ;
 
     //Create the starting method
     void Start()
@@ -24,19 +25,16 @@ public class Consequence : MonoBehaviour
         currentHP = maxHP;
         damage = Random.Range(10.0f, 20.0f);
         playerMovement = GetComponent<PlayerMovement>();
+        death.SetActive(false);
     }
     void DamageTaker(float damager)
     {
         currentHP -= damager;
-        health.text = "Health: " + currentHP;
-        recognitionBar.qualitycontroller = -6;
         Death();
     }
     void HealthIntaker(int healthPickup)
     {
         currentHP += healthPickup;
-        recognitionBar.qualitycontroller = 7;
-        health.text = "Health: " + currentHP;
         if (currentHP >= maxHP)
         {
             currentHP = maxHP;
@@ -47,6 +45,7 @@ public class Consequence : MonoBehaviour
         if (currentHP <= 0)
         {
             Debug.Log("Player died!");
+            death.SetActive(true);
         }
     }
     void OnCollisionEnter(Collision collision)

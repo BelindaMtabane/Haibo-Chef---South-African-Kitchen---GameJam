@@ -19,7 +19,6 @@ public class CuttingSystems : MonoBehaviour
     private float timer;
     private bool canClick = false;
     DishInfor DishInfor;
-    RecognitionBar RecognitionBar;
 
     [System.Obsolete]
     void Start()
@@ -29,7 +28,6 @@ public class CuttingSystems : MonoBehaviour
             Debug.LogWarning("Text is not assigned in the Inspector!");
             return;
         }
-        RecognitionBar = FindObjectOfType<RecognitionBar>();
         buttons = new GameObject[] { Redbutton, Bluebutton, Greenbutton, Yellowbutton };
         sequence = new GameObject[buttons.Length];
     }
@@ -42,7 +40,7 @@ public class CuttingSystems : MonoBehaviour
             return;
         }
         //Highlight the buttons in the sequence
-        cuttext.text = "Press the buttons: " + "\n" + sequence[0].name + "\n" + sequence[1].name + "\n" + sequence[2].name + "\n" + sequence[3].name;
+        cuttext.text = "Press the buttons: " + "\n" + sequence[0].name + sequence[1].name + sequence[2].name + sequence[3].name;
     }
     void buttonSequence()
     {
@@ -81,7 +79,6 @@ public class CuttingSystems : MonoBehaviour
             if (currentIndex >= sequence.Length)
             {
                 cuttext.text = "Sequence complete!";
-                RecognitionBar.qualitycontroller = 3;
                 canClick = false;
                 Redbutton.SetActive(false);
                 Bluebutton.SetActive(false);

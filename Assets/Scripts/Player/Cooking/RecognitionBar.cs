@@ -8,10 +8,10 @@ public class RecognitionBar : MonoBehaviour
     //Create variables
     public TMP_Text recognitionPercentPLY;
     public TMP_Text recognitionPercentNPC;
-    public int RecognitionCountPLY;
-    public int RecognitionCountNPC;
-    public int qualitycontroller;
-    public int qualitycontrollerNPC = 5;
+    public int RecognitionCountPLY = 5;
+    public int RecognitionCountNPC = 15;
+    private int qualitycontroller;
+    private int qualitycontrollerNPC = 5;
     void Start()
     {
         if (recognitionPercentPLY == null)
@@ -37,6 +37,8 @@ public class RecognitionBar : MonoBehaviour
             }
             else if (RecognitionCountPLY < 100)
             {
+                qualitycontroller = Random.Range(3, 10);
+                qualitycontrollerNPC = Random.Range(5, 15);
                 RecognitionCountPLY += qualitycontroller;
                 RecognitionCountNPC += qualitycontrollerNPC;
                 recognitionPercentPLY.text = "Player Recognition: "+RecognitionCountPLY.ToString() + "%";

@@ -41,14 +41,5 @@ public class DishInfor : MonoBehaviour
             Debug.Log("Not enough ingredients for " + dishName);
         }
     }
-    public void increaseStock()
-    {
-        for (int i = 0; i < ingredients.Length; i++)
-        {
-            //Increase stock according to the dish
-            inventorySystem.ingredients[(int)ingredients[i]] += requiredAmounts[i];
-            Debug.Log("Increased stock of " + ingredients[i] + " .Current stock: " + inventorySystem.ingredients[(int)ingredients[i]]);
-        }
     
-    }
 }

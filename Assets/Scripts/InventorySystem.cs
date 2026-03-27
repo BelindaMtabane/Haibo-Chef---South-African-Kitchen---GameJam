@@ -6,7 +6,7 @@ public class InventorySystem : MonoBehaviour
 {
     //Create variables
     public int[] ingredients = new int[6];
-    public int maxStock = 20;
+    public int maxStock = 40;
 
     public enum IngredientType
     {

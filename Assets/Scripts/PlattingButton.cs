@@ -25,6 +25,10 @@ public class PlattingButton : MonoBehaviour
         quality = random;
 
         qualityPercent.text = "Well done" + "\n"+ " Your food Quality is: \n" + quality;
+
+
+        platePanel.SetActive(true);
+        platePanel.SetActive(false);
     }
     private void OnCollisionEnter(Collision collision)
     {
