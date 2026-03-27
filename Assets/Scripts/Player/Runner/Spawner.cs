@@ -4,7 +4,7 @@ public class Spawner : MonoBehaviour
 {
     //Create variables
     public GameObject prefab;
-    public int maxCount = 10;
+    public int maxCount = 2;
     public float minX = 233.72f;
     public float maxX = 253.94f;
     public float spawnY = 50.2f;
@@ -12,22 +12,17 @@ public class Spawner : MonoBehaviour
     public float minZ = -50.36f;
     private int spawned;
 
-    void Update()
+    void Start()
     {
-        if (spawned >= maxCount) return;
-
-        float x = Random.Range(minX, maxX);
-        float z = Random.Range(minZ, maxZ);
-        Vector3 spawnPos = new Vector3(x, spawnY, z);
-        Instantiate(prefab, spawnPos, Quaternion.identity);
-        spawned++;
-    }
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
+        for (int i = 0; i < maxCount; i++)
         {
-            //Destroy each spawned object one by one
-            Destroy(gameObject);
+            //Spawn in random x and z positions
+            float x = Random.Range(minX, maxX);
+            float z = Random.Range(minZ, maxZ);
+            Vector3 spawnPos = new Vector3(x, spawnY, z);
+            Instantiate(prefab, spawnPos, Quaternion.identity);
+            spawned++;
         }
     }
+    
 }

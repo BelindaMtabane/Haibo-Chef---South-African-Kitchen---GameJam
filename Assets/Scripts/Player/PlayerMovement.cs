@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     //Declarations
-    [SerializeField] private float speed = 5f;
+    [SerializeField] public float speed = 5f;
     [SerializeField] private float jumpforce = 4f;
     public float moveLRDistance = 2f;
     public float moveLRSpeed = 1f;
@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private Vector3 moveDirection;
     [SerializeField] private bool isGrounded = false;
-    private Vector3 startPosition;
+    public Vector3 startPosition;
 
     void Start()
     {

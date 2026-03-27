@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UIElements;
 public class CuttingSystems : MonoBehaviour
 {
@@ -9,34 +10,21 @@ public class CuttingSystems : MonoBehaviour
     public GameObject Bluebutton;
     public GameObject Greenbutton;
     public GameObject Yellowbutton;
+
+    //public TMP_Text cuttext;
     private GameObject[] buttons;
     private string[] colours = { "Red", "Blue", "Green", "Yellow" };
     private GameObject[] sequence;
     private int currentIndex = 0;
     private float timer;
     private bool canClick = false;
+    DishInfor DishInfor;
 
     void Start()
     {
         buttons = new GameObject[] { Redbutton, Bluebutton, Greenbutton, Yellowbutton };
         sequence = new GameObject[buttons.Length];
-        
-        buttonSequence();
-        HighlightButtons();
-        timer = Time.time + 2f;//CountDown Timer
     }
-    //Create a method to check if the button clicked matches the sequence
-    void Update()
-    {
-        // Wait before allowing clicks
-        if (!canClick && Time.time >= timer)
-        {
-            canClick = true;
-            Debug.Log("Start clicking!");
-            timer = Time.time + 5f; // Give player 5 seconds to complete the sequence
-        }
-    }
-
     void HighlightButtons()
     {
         canClick = true;
@@ -56,6 +44,8 @@ public class CuttingSystems : MonoBehaviour
             sequence[i] = sequence[randomIndex];
             sequence[randomIndex] = temp;
         }
+
+        HighlightButtons();
     }
     public void CheckButton(GameObject clickedButton)
     {
@@ -76,6 +66,10 @@ public class CuttingSystems : MonoBehaviour
             {
                 Debug.Log("Sequence complete!");
                 canClick = false;
+                Redbutton.SetActive(false);
+                Bluebutton.SetActive(false);
+                Greenbutton.SetActive(false);
+                Yellowbutton.SetActive(false);
             }
         }
         else
@@ -84,16 +78,31 @@ public class CuttingSystems : MonoBehaviour
             canClick = false;
             Debug.Log("Sequence failed! Restarting...");
             currentIndex = 0;
-            buttonSequence();
+            Redbutton.SetActive(false);
+            Bluebutton.SetActive(false);
+            Greenbutton.SetActive(false);
+            Yellowbutton.SetActive(false);
         }
         
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.CompareTag("Player"))
+        if (DishInfor != null) return;
+        //Check that the one near to the station is the player
+        if (collision.gameObject.CompareTag("Player"))
         {
-            HighlightButtons();
-            timer = Time.time + 2f; // Reset timer when player enters the trigger
+            Redbutton.SetActive(true);
+            Bluebutton.SetActive(true);
+            Greenbutton.SetActive(true);
+            Yellowbutton.SetActive(true);
+            buttonSequence();
+        }
+        else
+        {
+            Redbutton.SetActive(false);
+            Bluebutton.SetActive(false);
+            Greenbutton.SetActive(false);
+            Yellowbutton.SetActive(false);
         }
     }
 }

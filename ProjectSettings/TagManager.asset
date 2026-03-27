@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Ground
   - Cut
+  - Obstacle1
+  - Obstacle2
+  - health
+  - speed
   layers:
   - Default
   - TransparentFX

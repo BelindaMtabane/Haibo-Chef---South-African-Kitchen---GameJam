@@ -8,8 +8,4 @@ public class ButtonPressor : MonoBehaviour
     {
         cuttingSystems.CheckButton(gameObject);
     }
-    public void OnButtonPressedStir()
-    {
-        stirringSystem.CheckButton(gameObject);
-    }
 }
