@@ -1,4 +1,6 @@
+using TMPro.Examples;
 using UnityEngine;
+using TMPro;
 
 public class Consequence : MonoBehaviour
 {
@@ -7,10 +9,17 @@ public class Consequence : MonoBehaviour
     private float damage;
     private float currentHP;
     PlayerMovement playerMovement;
+    public TMP_Text health;
+    RecognitionBar recognitionBar;
 
     //Create the starting method
     void Start()
     {
+        if (health == null)
+        {
+            Debug.LogWarning("Text is not assigned in the Inspector!");
+            return;
+        }
         //Set the player health to the maximum
         currentHP = maxHP;
         damage = Random.Range(10.0f, 20.0f);
@@ -19,13 +28,15 @@ public class Consequence : MonoBehaviour
     void DamageTaker(float damager)
     {
         currentHP -= damager;
-        Debug.Log("Current HP Damage: " + currentHP);
+        health.text = "Health: " + currentHP;
+        recognitionBar.qualitycontroller = -6;
         Death();
     }
     void HealthIntaker(int healthPickup)
     {
         currentHP += healthPickup;
-        Debug.Log("Current HP Increase: " + currentHP);
+        recognitionBar.qualitycontroller = 7;
+        health.text = "Health: " + currentHP;
         if (currentHP >= maxHP)
         {
             currentHP = maxHP;

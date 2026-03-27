@@ -7,19 +7,29 @@ public class CookingSystem : MonoBehaviour
     public GameObject cookProgress;
     DishInfor DishInfor;
     public Orders orders;
+    RecognitionBar recognitionBar;
     
     //Create a text ui label
-    //public TMP_Text progressPercent;
+    public TMP_Text progressPercent;
+    private void Start()
+    {
+        if (progressPercent == null)
+        {
+            Debug.LogWarning("Text is not assigned in the Inspector!");
+            return;
+        }
+    }
     //Create a method to which when the player click on it it ingress progress percent
     public void OnButtonPressed()
     {
         //Increase the progress percent by 20% each time the button is pressed
         progress += 20;
-        Debug.Log( "" + progress + "%");
+        progressPercent.text = "" + progress + "%";
         if (progress == 100)
         {
-            Debug.Log("Platting complete! Next Order");
+            progressPercent.text = "Cooking complete!";
             orders.CompleteOrder(DishInfor.dishName);
+            recognitionBar.qualitycontroller = 5;
         }
     }
     private void OnCollisionEnter(Collision collision)

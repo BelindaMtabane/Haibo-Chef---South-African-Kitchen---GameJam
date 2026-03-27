@@ -11,7 +11,7 @@ public class CuttingSystems : MonoBehaviour
     public GameObject Greenbutton;
     public GameObject Yellowbutton;
 
-    //public TMP_Text cuttext;
+    public TMP_Text cuttext;
     private GameObject[] buttons;
     private string[] colours = { "Red", "Blue", "Green", "Yellow" };
     private GameObject[] sequence;
@@ -19,21 +19,37 @@ public class CuttingSystems : MonoBehaviour
     private float timer;
     private bool canClick = false;
     DishInfor DishInfor;
+    RecognitionBar RecognitionBar;
 
+    [System.Obsolete]
     void Start()
     {
+        if (cuttext == null)
+        {
+            Debug.LogWarning("Text is not assigned in the Inspector!");
+            return;
+        }
+        RecognitionBar = FindObjectOfType<RecognitionBar>();
         buttons = new GameObject[] { Redbutton, Bluebutton, Greenbutton, Yellowbutton };
         sequence = new GameObject[buttons.Length];
     }
     void HighlightButtons()
     {
         canClick = true;
+        if (sequence[0] == null)
+        {
+            Debug.LogError("Sequence not initialized!");
+            return;
+        }
         //Highlight the buttons in the sequence
-        Debug.Log("Press the buttons: " + "\n" + sequence[0].name + "\n" + sequence[1].name + "\n" + sequence[2].name + "\n" + sequence[3].name);
+        cuttext.text = "Press the buttons: " + "\n" + sequence[0].name + "\n" + sequence[1].name + "\n" + sequence[2].name + "\n" + sequence[3].name;
     }
     void buttonSequence()
     {
-        buttons.CopyTo(sequence, 0);
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            sequence[i] = buttons[i];
+        }
         for (int i = 0; i < sequence.Length; i++)
         {
             //Randomly select buttons for the sequence
@@ -64,7 +80,8 @@ public class CuttingSystems : MonoBehaviour
             //Check if all buttons are correct and pressed
             if (currentIndex >= sequence.Length)
             {
-                Debug.Log("Sequence complete!");
+                cuttext.text = "Sequence complete!";
+                RecognitionBar.qualitycontroller = 3;
                 canClick = false;
                 Redbutton.SetActive(false);
                 Bluebutton.SetActive(false);
@@ -76,7 +93,7 @@ public class CuttingSystems : MonoBehaviour
         {
             Debug.Log("Wrong button for the position " + (currentIndex + 1));
             canClick = false;
-            Debug.Log("Sequence failed! Restarting...");
+            cuttext.text = "Sequence failed! Restarting...";
             currentIndex = 0;
             Redbutton.SetActive(false);
             Bluebutton.SetActive(false);
@@ -85,7 +102,7 @@ public class CuttingSystems : MonoBehaviour
         }
         
     }
-    private void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
         if (DishInfor != null) return;
         //Check that the one near to the station is the player

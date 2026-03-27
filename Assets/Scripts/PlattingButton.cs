@@ -5,19 +5,26 @@ using System.Diagnostics.Tracing;
 public class PlattingButton : MonoBehaviour
 {
     //Create variables
-    public int quality;
+    private int quality;
     public int count;
-    //public TMP_Text qualityPercent;
+    public TMP_Text qualityPercent;
     public GameObject platePanel;
     DishInfor DishInfor;
 
     //Press a button to be evaluted on the dish to get score
     public void EvaluatePlate()
     {
+        if (qualityPercent == null)
+        {
+            Debug.LogWarning("Text is not assigned in the Inspector!");
+            return;
+        }
         //Cacluate the platequality based on other stations
-        quality += count;
+        int random = Random.Range(45, 80);
+        
+        quality = random;
 
-        Debug.Log("Well done" + "\n"+ " Your food Quality is: \n" + quality.ToString());
+        qualityPercent.text = "Well done" + "\n"+ " Your food Quality is: \n" + quality;
     }
     private void OnCollisionEnter(Collision collision)
     {
