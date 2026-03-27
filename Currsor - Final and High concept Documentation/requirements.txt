@@ -1,0 +1,16 @@
+# Not Python dependencies.
+# This Unity C# project lists Unity Package Manager packages only.
+
+com.unity.textmeshpro
+com.unity.inputsystem
+
+# Uses Unity built-in systems for the rest (runner, station flow, UI, recognition text).
+# Final gameplay scope is non-time-based in the submitted version.
+#
+# Development/support tools used in this project (informational, not runtime dependencies):
+# - GitHub Copilot
+# - ChatGPT
+# - Cursor
+# - Mixamo
+# - Artlist.io (3 background music tracks, latest clips added)
+# - AI art/documentation assistance tools
